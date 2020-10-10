@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WongMethod", "WongMethod\WongMethod.csproj", "{D41A2CC6-A57B-4457-BA5C-2FA93BF99C8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D41A2CC6-A57B-4457-BA5C-2FA93BF99C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41A2CC6-A57B-4457-BA5C-2FA93BF99C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41A2CC6-A57B-4457-BA5C-2FA93BF99C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41A2CC6-A57B-4457-BA5C-2FA93BF99C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8EF7349-4BDB-4472-A607-2A9391E88FB5}
+	EndGlobalSection
+EndGlobal
