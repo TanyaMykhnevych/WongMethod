@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Inputs\task8.in">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Inputs\task7.in">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

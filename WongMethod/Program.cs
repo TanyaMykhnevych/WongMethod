@@ -11,7 +11,7 @@ namespace WongMethod
         {
             List<Clause> leftClauses = new List<Clause>();
             List<Clause> rightClauses = new List<Clause>();
-            ReadFile(@"../../../Inputs/task2.in", leftClauses, rightClauses);
+            ReadFile(@"../../../Inputs/task7.in", leftClauses, rightClauses);
 
             bool result = ExecuteWong(leftClauses, rightClauses);
             Console.WriteLine(result ? "No contradiction was found" : "Contradiction was found");
@@ -20,13 +20,37 @@ namespace WongMethod
 
         private static bool ExecuteWong(List<Clause> left, List<Clause> right)
         {
+            right.Sort((x, y) => y.Variables.Count - x.Variables.Count);
+            left.Sort((x, y) => y.Variables.Count - x.Variables.Count);
+
             if (MeetWongClause(left, right)) return true;
 
             MoveNegativeToRightIfPossible(left, right);
 
-            if (left.All(c => c.HasOneValiable) && !MeetWongClause(left, right)) return false;
+            if (left.All(c => c.HasOneValiable) && !MeetWongClause(left, right))
+            {
+                if (right.All(c => c.HasOneValiable)) return false;
+
+                // Process right part
+                foreach (Clause c in right)
+                {
+                    foreach (Variable v in c.Variables)
+                    {
+                        List<Clause> newRight = new List<Clause>
+                            {
+                                new Clause(Guid.NewGuid(), new List<Variable> { new Variable(v) })
+                            };
+                        newRight.AddRange(right.Where(l => l.Id != c.Id).Select(c => new Clause(c)));
+
+                        List<Clause> newLeft = left.Select(c => new Clause(c)).ToList();
+                        return ExecuteWong(newLeft, newRight);
+                    }
+                }
+            }
+
             if (MeetWongClause(left, right)) return true;
 
+            // Process left part
             foreach (Clause c in left)
             {
                 foreach (Variable v in c.Variables)
@@ -37,7 +61,6 @@ namespace WongMethod
                     };
 
                     newLeft.AddRange(left.Where(l => l.Id != c.Id).Select(c => new Clause(c)));
-                    newLeft.Sort((x, y) => y.Variables.Count - x.Variables.Count);
 
                     List<Clause> newRight = right.Select(c => new Clause(c)).ToList();
                     return ExecuteWong(newLeft, newRight);
