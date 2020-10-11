@@ -86,23 +86,30 @@ namespace WongMethod
 
         private static void ReadFile(string file, List<Clause> leftClauses, List<Clause> rightClauses)
         {
-            using StreamReader reader = new StreamReader(file);
-            string line;
-            bool left = true;
-            while ((line = reader.ReadLine()) != null)
+            try
             {
-                Clause c = new Clause();
-                if (string.IsNullOrEmpty(line))
+                using StreamReader reader = new StreamReader(file);
+                string line;
+                bool left = true;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    left = false;
-                    continue;
+                    Clause c = new Clause();
+                    if (string.IsNullOrEmpty(line))
+                    {
+                        left = false;
+                        continue;
+                    }
+
+                    line.Split(' ').ToList().ForEach(v =>
+                        c.AddVariable(new Variable(v.StartsWith('~') ? v.Substring(1) : v, v.StartsWith('~'))));
+
+                    if (left) leftClauses.Add(c);
+                    else rightClauses.Add(c);
                 }
-
-                line.Split(' ').ToList().ForEach(v =>
-                    c.AddVariable(new Variable(v.StartsWith('~') ? v.Substring(1) : v, v.StartsWith('~'))));
-
-                if (left) leftClauses.Add(c);
-                else rightClauses.Add(c);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine("File not found.");
             }
         }
     }
